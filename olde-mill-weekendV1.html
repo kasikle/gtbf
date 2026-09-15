@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Olde Mill Weekend — Sept 17–20</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest:#17302A; --forest-deep:#0F211C;
+    --parchment:#EDE4CE; --parchment-light:#F6F1E4;
+    --ridge:#3E5C68; --gold:#C89B3C;
+    --ink:#1C231F; --ink-soft:#5B6660;
+    --line:rgba(28,35,31,0.14);
+    --card:#FFFFFF;
+    --red:#FF0000; --blue:#0066CC; --black:#000000; --white:#F7F5EE;
+    --radius:10px;
+    --shadow:0 2px 10px rgba(15,33,28,0.08);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0; font-family:'IBM Plex Sans',sans-serif; background:var(--parchment-light); color:var(--ink); -webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:'Fraunces',serif; margin:0; font-weight:600;}
+  a{color:inherit;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 20px;}
+  header.site{position:sticky; top:0; z-index:50; background:var(--forest); color:var(--parchment-light); border-bottom:3px solid var(--gold);}
+  .header-row{display:flex; align-items:center; justify-content:space-between; padding:12px 20px; max-width:1080px; margin:0 auto; gap:12px; flex-wrap:wrap;}
+  .brand{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;}
+  .brand .name{font-family:'Fraunces',serif; font-weight:600; font-size:18px;}
+  .brand .dates{font-size:12px; color:#C9D6CE; font-family:'IBM Plex Mono',monospace;}
+  nav.top-links{display:flex; gap:16px; font-size:13px; flex-wrap:wrap;}
+  nav.top-links a{opacity:0.85; text-decoration:none;}
+  nav.top-links a:hover{opacity:1; text-decoration:underline;}
+  .lock-btn{background:transparent; border:1px solid rgba(246,241,228,0.35); color:var(--parchment-light); border-radius:8px; padding:6px 10px; font-size:12px; cursor:pointer; display:flex; align-items:center; gap:6px; font-family:'IBM Plex Sans',sans-serif;}
+  .lock-btn:hover{background:rgba(246,241,228,0.1);}
+  .lock-btn.active{background:var(--gold); color:var(--forest-deep); border-color:var(--gold); font-weight:500;}
+  .passcode-box{display:flex; gap:6px; align-items:center;}
+  .passcode-box input{border:1px solid rgba(246,241,228,0.35); background:rgba(15,33,28,0.4); color:var(--parchment-light); border-radius:8px; padding:6px 10px; font-size:12px; width:110px; font-family:'IBM Plex Sans',sans-serif;}
+  .passcode-box input::placeholder{color:#8FA097;}
+  .passcode-box button{background:var(--gold); color:var(--forest-deep); border:none; border-radius:8px; padding:6px 12px; font-size:12px; font-weight:600; cursor:pointer; font-family:'IBM Plex Sans',sans-serif;}
+
+  .hero{background:var(--forest); color:var(--parchment-light); padding:48px 20px 36px;}
+  .hero-inner{max-width:1080px; margin:0 auto;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--gold);}
+  .hero h1{font-size:clamp(30px,4.6vw,48px); margin-top:10px; line-height:1.08;}
+  .hero p.sub{font-size:15.5px; color:#CBD8D0; margin-top:12px; max-width:580px; line-height:1.6;}
+  .facts{display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:1px; margin-top:28px; background:rgba(246,241,228,0.12); border-radius:12px; overflow:hidden;}
+  .fact{padding:14px 16px; background:rgba(15,33,28,0.35);}
+  .fact .num{font-family:'Fraunces',serif; font-size:24px; font-weight:600; color:var(--gold);}
+  .fact .lbl{font-size:11px; color:#B9C7BE; margin-top:2px; text-transform:uppercase; letter-spacing:0.05em;}
+
+  section{padding:40px 0;}
+  .section-head{margin-bottom:20px; display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+  .section-head .eyebrow{color:var(--ridge);}
+  .section-head h2{font-size:26px; margin-top:4px;}
+  .match-suffix{color:#1D7A4C; font-weight:700;}
+
+  .two-col{display:grid; grid-template-columns:1.4fr 1fr; gap:26px;}
+  @media(max-width:760px){.two-col{grid-template-columns:1fr;}}
+  .prose p{line-height:1.7; color:var(--ink); font-size:15px;}
+  .info-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:20px 22px; box-shadow:var(--shadow);}
+  .info-card h3{font-size:14px; text-transform:uppercase; letter-spacing:0.05em; color:var(--ridge); font-weight:600; margin-bottom:14px;}
+  .info-row{display:flex; justify-content:space-between; gap:10px; padding:9px 0; border-bottom:1px solid var(--line); font-size:14px;}
+  .info-row:last-child{border-bottom:none;}
+  .info-row .k{color:var(--ink-soft);}
+  .info-row .v{text-align:right; font-weight:500; color:var(--ink);}
+  .info-row a{color:var(--ridge); text-decoration:underline;}
+
+  .lodge-grid{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media(max-width:760px){.lodge-grid{grid-template-columns:1fr;}}
+  .lodge-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:18px 20px; box-shadow:var(--shadow);}
+  .lodge-card h3{font-family:'Fraunces',serif; font-size:18px; margin-bottom:8px;}
+  .lodge-card p{font-size:14px; line-height:1.6; color:var(--ink-soft);}
+
+  .condo-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:12px; margin-top:22px;}
+  .condo-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:14px 16px; box-shadow:var(--shadow);}
+  .condo-card .cnum{font-family:'Fraunces',serif; font-size:17px; font-weight:600; margin-bottom:6px;}
+  .condo-card .cplayers{font-size:12.5px; color:var(--ink-soft); line-height:1.6; margin-bottom:8px;}
+  .section-toggle{background:var(--card); border:1px solid var(--line); color:var(--ridge); border-radius:999px; padding:6px 14px; font-size:12.5px; cursor:pointer; display:flex; align-items:center; gap:6px; font-family:'IBM Plex Sans',sans-serif;}
+  .section-toggle:hover{background:var(--parchment);}
+  .condo-card input.condo-note{width:100%; font-size:12.5px; border:1px solid var(--line); border-radius:6px; padding:6px 8px; font-family:'IBM Plex Sans',sans-serif;}
+  .condo-card .cnote-view{font-size:12.5px; color:var(--ridge); font-style:italic;}
+
+  .legend{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:22px;}
+  .chip{display:flex; align-items:center; gap:8px; background:var(--card); border:1px solid var(--line); border-radius:999px; padding:7px 14px 7px 8px; box-shadow:var(--shadow); font-size:13px;}
+  .swatch{width:14px; height:14px; border-radius:50%; border:1px solid rgba(0,0,0,0.15); flex-shrink:0;}
+
+  .search-row{display:flex; gap:10px; margin-bottom:18px; flex-wrap:wrap; align-items:center;}
+  .search-row input[type=text]{flex:1; min-width:220px; padding:10px 14px; border:1px solid var(--line); border-radius:999px; font-size:14px; font-family:'IBM Plex Sans',sans-serif; background:var(--card);}
+  .search-row input[type=text]:focus{outline:2px solid var(--ridge);}
+  .search-count{font-size:12.5px; color:var(--ink-soft); white-space:nowrap;}
+
+  table.roster-table{width:100%; border-collapse:collapse; background:var(--card); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow);}
+  table.roster-table th{text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-soft); padding:10px 12px; border-bottom:1px solid var(--line); background:var(--parchment);}
+  table.roster-table td{padding:10px 12px; border-bottom:1px solid var(--line); font-size:13.5px; vertical-align:middle;}
+  table.roster-table tr.player-row{cursor:pointer;}
+  table.roster-table tr.player-row:hover{background:rgba(62,92,104,0.05);}
+  .expand-hint{font-size:10px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:0.04em; margin-left:6px; white-space:nowrap;}
+  table.roster-table input, table.roster-table select{font-size:13px; border:1px solid var(--line); border-radius:6px; padding:4px 6px; width:100%; font-family:'IBM Plex Sans',sans-serif;}
+  .name-cell{display:flex; align-items:center; gap:8px;}
+  .expand-panel{padding:14px 18px; background:var(--parchment); font-size:13px;}
+  .expand-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px;}
+  .expand-item{background:var(--card); border:1px solid var(--line); border-radius:8px; padding:10px 12px;}
+  .expand-item .m{font-size:10.5px; text-transform:uppercase; letter-spacing:0.05em; color:var(--ridge); margin-bottom:4px;}
+  .expand-item .v{font-size:13.5px; font-weight:500;}
+  .expand-item .s{font-size:12px; color:var(--ink-soft); margin-top:2px;}
+
+  .match-tabs{display:flex; gap:8px; overflow-x:auto; background:transparent; margin-bottom:22px; padding:2px;}
+  .match-tabs button{flex:1; min-width:100px; background:var(--card); border:2px solid transparent; border-radius:8px; color:var(--ink-soft); padding:10px 8px; font-size:13px; font-weight:500; cursor:pointer; white-space:nowrap; font-family:'IBM Plex Sans',sans-serif; transition:background 0.15s, color 0.15s, box-shadow 0.15s;}
+  .match-tabs button:hover{box-shadow:var(--shadow);}
+  .match-tabs button.active{font-weight:700;}
+
+  .match-meta{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:24px;}
+  @media(max-width:700px){.match-meta{grid-template-columns:1fr;}}
+  .meta-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:14px 16px; box-shadow:var(--shadow);}
+  .meta-card.wide{grid-column:1 / -1;}
+  .meta-card .lbl{font-size:11px; text-transform:uppercase; letter-spacing:0.05em; color:var(--ridge); margin-bottom:6px; font-weight:600;}
+  .meta-card input{width:100%; border:1px solid var(--line); border-radius:6px; padding:7px 9px; font-size:13.5px; font-family:'IBM Plex Sans',sans-serif;}
+  .meta-card textarea.rules-textarea{width:100%; min-height:80px; border:1px solid var(--line); border-radius:6px; padding:9px 10px; font-size:13.5px; font-family:'IBM Plex Sans',sans-serif; resize:vertical;}
+  .meta-card .val{font-size:14px; color:var(--ink); font-style:italic; }
+  .meta-card .val.multiline{white-space:pre-wrap; font-style:normal; line-height:1.6;}
+  .meta-card .val.tbd{color:var(--ink-soft);}
+
+  .nine-label{font-family:'IBM Plex Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:0.1em; color:var(--ridge); margin:24px 0 12px;}
+  .holes-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
+  @media(max-width:700px){.holes-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:460px){.holes-grid{grid-template-columns:1fr;}}
+  .hole-card{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:14px 16px; box-shadow:var(--shadow);}
+  .hole-card .hole-num{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:2px;}
+  .hole-card .hole-num .h{font-family:'Fraunces',serif; font-size:19px; font-weight:600; color:var(--forest);}
+  .hole-card .hole-num .tag{font-size:10px; font-family:'IBM Plex Mono',monospace; color:var(--ink-soft); text-transform:uppercase;}
+  .pair{border-top:1px dashed var(--line); padding-top:6px; margin-top:6px;}
+  .time-group-label{font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--gold); background:rgba(200,155,60,0.12); border-radius:5px; padding:2px 7px; display:inline-block; margin:8px 0 4px;}
+  .time-group-label:first-child{margin-top:0;}
+  .pair:first-of-type{border-top:none; padding-top:0; margin-top:0;}
+  .slot{display:flex; align-items:center; gap:8px; padding:3px 0; flex-wrap:wrap;}
+  .slot .dot{width:9px; height:9px; border-radius:50%; flex-shrink:0; border:1px solid rgba(0,0,0,0.15);}
+  .slot .pname{font-size:13px; flex:1;}
+  .slot .score-view{font-size:11.5px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace;}
+  .edit-fields{display:flex; gap:6px; align-items:center; flex-wrap:wrap; width:100%;}
+  .edit-fields input.hole-input{width:44px; font-size:12px; padding:3px 5px; border:1px solid var(--line); border-radius:5px;}
+  .edit-fields input.score-input{width:52px; font-size:12px; padding:3px 5px; border:1px solid var(--line); border-radius:5px;}
+  .edit-fields select.partner-select{font-size:11px; padding:3px 4px; border:1px solid var(--line); border-radius:5px; max-width:100px;}
+
+  .notes-box{margin-top:20px; background:var(--card); border:1px dashed var(--ridge); border-radius:var(--radius); padding:18px 20px;}
+  .notes-box h3{font-size:14px; text-transform:uppercase; letter-spacing:0.05em; color:var(--ridge); margin-bottom:10px;}
+  .notes-box textarea{width:100%; min-height:90px; border:1px solid var(--line); border-radius:8px; padding:10px; font-family:'IBM Plex Sans',sans-serif; font-size:14px; resize:vertical;}
+  .notes-box p.static-note{font-size:14px; color:var(--ink-soft); line-height:1.6; white-space:pre-wrap; margin:0;}
+
+  .save-bar{position:sticky; bottom:0; background:var(--forest); color:var(--parchment-light); padding:12px 20px; display:flex; align-items:center; justify-content:space-between; border-top:3px solid var(--gold); z-index:40; flex-wrap:wrap; gap:10px;}
+  .save-bar button{background:var(--gold); color:var(--forest-deep); border:none; border-radius:8px; padding:9px 18px; font-weight:600; font-size:13px; cursor:pointer; font-family:'IBM Plex Sans',sans-serif;}
+  .save-bar .status{font-size:12px; color:#C9D6CE;}
+
+  footer{padding:30px 20px 60px; text-align:center; color:var(--ink-soft); font-size:12.5px;}
+  footer .updated{font-family:'IBM Plex Mono',monospace; margin-top:6px;}
+
+  .toast{position:fixed; bottom:22px; left:50%; transform:translateX(-50%); background:var(--forest-deep); color:var(--parchment-light); padding:10px 18px; border-radius:8px; font-size:13px; z-index:100; box-shadow:0 4px 16px rgba(0,0,0,0.25); opacity:0; transition:opacity 0.25s; pointer-events:none;}
+  .toast.show{opacity:1;}
+  .edit-hint{font-size:12px; color:var(--ink-soft); margin-bottom:16px; background:rgba(200,155,60,0.12); border:1px solid rgba(200,155,60,0.4); border-radius:8px; padding:8px 12px; display:inline-block;}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="header-row">
+    <div class="brand">
+      <span class="name">G.T.B.F</span>
+      <span class="dates">SEP 17&ndash;20, 2026 &middot; LAUREL FORK, VA</span>
+    </div>
+    <button class="lock-btn" id="editToggle"><span id="lockIcon">&#128274;</span> <span id="lockLabel">Edit</span></button>
+    <div class="passcode-box" id="passcodeBox" style="display:none;">
+      <input type="password" id="passcodeInput" placeholder="Passcode" autocomplete="off">
+      <button id="passcodeSubmit">Go</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="lodge-grid" style="margin-top:0;">
+      <div class="info-card">
+        <h3>Course address</h3>
+        <div class="info-row"><span class="k">Address</span><span class="v">2258 Stone Mountain Rd<br>Laurel Fork, VA 24352</span></div>
+        <div class="info-row"><span class="k"></span><span class="v"><a href="https://maps.app.goo.gl/Ph4AcSEEMyG2zciE9" target="_blank" rel="noopener">Navigation Link</a></span></div>
+      </div>
+      <div class="info-card">
+        <h3>Condo address</h3>
+        <div class="info-row"><span class="k">Address</span><span class="v">15 Birdie Lane</span></div>
+        <div class="info-row"><span class="k"></span><span class="v"><a href="https://maps.app.goo.gl/tRv2HBfwdYUysss47" target="_blank" rel="noopener">Navigation Link</a></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="lodging" class="wrap">
+  <div class="section-head">
+    <div><div class="eyebrow">Where you're staying</div><h2>Lodging</h2></div>
+    <button class="section-toggle" id="lodgingToggle"><span id="lodgingArrow">&#9662;</span> <span id="lodgingToggleLabel">Hide</span></button>
+  </div>
+  <div id="condoGrid" class="condo-grid"></div>
+</section>
+
+<section id="roster" class="wrap">
+  <div class="section-head">
+    <div><div class="eyebrow">Who's playing</div><h2>Searchable Roster</h2></div>
+    <button class="section-toggle" id="rosterToggle"><span id="rosterArrow">&#9662;</span> <span id="rosterToggleLabel">Hide</span></button>
+  </div>
+  <div id="rosterBody">
+    <div class="search-row">
+      <input type="text" id="rosterSearch" placeholder="Search by name...">
+      <span class="search-count" id="rosterCount"></span>
+    </div>
+    <div style="overflow-x:auto;"><table class="roster-table" id="rosterTable"></table></div>
+  </div>
+</section>
+
+<section id="schedule" class="wrap">
+  <div class="section-head"><div><div class="eyebrow">Schedule</div><h2>Tee sheet &amp; pairings <span id="matchNameSuffix" class="match-suffix"></span></h2></div></div>
+  <div id="editHint" class="edit-hint" style="display:none;">Edit mode is on &mdash; update holes, partners and scores below, then hit Save at the bottom. Changes are visible to everyone with this link.</div>
+  <div class="match-tabs" id="matchTabs"></div>
+  <div class="match-meta" id="matchMeta"></div>
+  <div id="scheduleBody"></div>
+</section>
+
+<footer>
+  <div class="updated" id="updatedLine">&nbsp;</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<div id="saveBarSlot"></div>
+
+<script type="application/json" id="seedData">
+{"players": [{"id": 1, "last": "Albers", "first": "Chris ", "condo": 111, "color": "red"}, {"id": 2, "last": "Alston", "first": "AJ", "condo": 102, "color": "red"}, {"id": 3, "last": "Anderson", "first": "Rick", "condo": 111, "color": "red"}, {"id": 4, "last": "Bach", "first": "Matt", "condo": 108, "color": "white"}, {"id": 5, "last": "Baker", "first": "Will", "condo": 104, "color": "red"}, {"id": 6, "last": "Balint", "first": "Joe", "condo": 109, "color": "white"}, {"id": 7, "last": "Barter", "first": "Stephen", "condo": 104, "color": "blue"}, {"id": 8, "last": "Bowen", "first": "Mark", "condo": 112, "color": "blue"}, {"id": 9, "last": "Boyd", "first": "Mark ", "condo": 103, "color": "white"}, {"id": 10, "last": "Brayboy", "first": "Brian ", "condo": 103, "color": "red"}, {"id": 11, "last": "Brewbaker", "first": "Brent ", "condo": 112, "color": "white"}, {"id": 12, "last": "Bujak", "first": "Jeff ", "condo": 108, "color": "blue"}, {"id": 13, "last": "Calamari", "first": "Rob", "condo": 101, "color": "white"}, {"id": 14, "last": "Cannon", "first": "Dale", "condo": 111, "color": "black"}, {"id": 15, "last": "Carter", "first": "Joey", "condo": 106, "color": "white"}, {"id": 16, "last": "Chambers", "first": "Stuart", "condo": 111, "color": "blue"}, {"id": 17, "last": "Chapman", "first": "Patrick ", "condo": 102, "color": "black"}, {"id": 18, "last": "Ciotoli", "first": "Stan", "condo": 107, "color": "white"}, {"id": 19, "last": "Cooke", "first": "Sam", "condo": 110, "color": "red"}, {"id": 20, "last": "Cornwright", "first": "Brett", "condo": 106, "color": "white"}, {"id": 21, "last": "Davis", "first": "Brad", "condo": 102, "color": "white"}, {"id": 22, "last": "Dercksen", "first": "Michael", "condo": 108, "color": "black"}, {"id": 23, "last": "Dillen", "first": "Jamie", "condo": 107, "color": "red"}, {"id": 24, "last": "Doster", "first": "Rob", "condo": 103, "color": "white"}, {"id": 25, "last": "Ervin", "first": "Frank", "condo": 105, "color": "black"}, {"id": 26, "last": "Fox", "first": "Greg", "condo": 111, "color": "blue"}, {"id": 27, "last": "Frazier", "first": "Dean ", "condo": 104, "color": "black"}, {"id": 28, "last": "Gaither", "first": "Scottie ", "condo": 105, "color": "red"}, {"id": 29, "last": "Gill", "first": "Paul", "condo": 106, "color": "black"}, {"id": 30, "last": "Grandaw", "first": "David ", "condo": 102, "color": "blue"}, {"id": 31, "last": "Gregory", "first": "Brandon", "condo": 105, "color": "red"}, {"id": 32, "last": "Hard", "first": "Mike ", "condo": 102, "color": "blue"}, {"id": 33, "last": "Hawkins", "first": "Mark", "condo": 105, "color": "white"}, {"id": 34, "last": "Hawley", "first": "Kenny", "condo": 112, "color": "blue"}, {"id": 35, "last": "Heller", "first": "Matt", "condo": 112, "color": "white"}, {"id": 36, "last": "Hinesley", "first": "Scott ", "condo": 112, "color": "black"}, {"id": 37, "last": "Hurd", "first": "Rick ", "condo": 104, "color": "black"}, {"id": 38, "last": "Ireland", "first": "Shane ", "condo": 111, "color": "blue"}, {"id": 39, "last": "Irimia", "first": "Mark", "condo": 108, "color": "black"}, {"id": 40, "last": "Kasischke", "first": "Chris", "condo": 110, "color": "black"}, {"id": 41, "last": "Lomas", "first": "Luis", "condo": 108, "color": "black"}, {"id": 42, "last": "Martin", "first": "Pete", "condo": 108, "color": "red"}, {"id": 43, "last": "Matteo", "first": "Craig", "condo": 101, "color": "black"}, {"id": 44, "last": "Matteo", "first": "Steve ", "condo": 103, "color": "red"}, {"id": 45, "last": "McDonnell", "first": "Chip", "condo": 111, "color": "red"}, {"id": 46, "last": "McHenry", "first": "Paul", "condo": 108, "color": "blue"}, {"id": 47, "last": "Medich", "first": "Mark ", "condo": 105, "color": "red"}, {"id": 48, "last": "Molgaard", "first": "Alex ", "condo": 101, "color": "black"}, {"id": 49, "last": "Molgaard", "first": "Eric", "condo": 101, "color": "white"}, {"id": 50, "last": "Nelson", "first": "Mike ", "condo": 101, "color": "black"}, {"id": 51, "last": "Nelson", "first": "Owen", "condo": 101, "color": "red"}, {"id": 52, "last": "Nenni", "first": "Andy ", "condo": 101, "color": "blue"}, {"id": 53, "last": "Newman", "first": "Josh", "condo": 109, "color": "blue"}, {"id": 54, "last": "Overton", "first": "Russ", "condo": 112, "color": "white"}, {"id": 55, "last": "Parisher", "first": "Chris ", "condo": 109, "color": "blue"}, {"id": 56, "last": "Petty", "first": "John ", "condo": 109, "color": "red"}, {"id": 57, "last": "Raines", "first": "Randy", "condo": 106, "color": "red"}, {"id": 58, "last": "Reavis", "first": "Martin", "condo": 105, "color": "red"}, {"id": 59, "last": "Ries", "first": "Greg", "condo": 102, "color": "black"}, {"id": 60, "last": "Rocco", "first": "Jack ", "condo": 102, "color": "white"}, {"id": 61, "last": "Ross", "first": "Rodney", "condo": 110, "color": "white"}, {"id": 62, "last": "Schneider", "first": "Lee", "condo": 112, "color": "white"}, {"id": 63, "last": "Spangler", "first": "Brian ", "condo": 101, "color": "blue"}, {"id": 64, "last": "Staley", "first": "Shane ", "condo": 105, "color": "blue"}, {"id": 65, "last": "Stanley", "first": "Paul ", "condo": 102, "color": "black"}, {"id": 66, "last": "Sufka", "first": "Patrick ", "condo": 108, "color": "blue"}, {"id": 67, "last": "Suther", "first": "John ", "condo": 112, "color": "red"}, {"id": 68, "last": "Thompson", "first": "David ", "condo": 107, "color": "blue"}, {"id": 69, "last": "Treadaway", "first": "Jeremy ", "condo": 110, "color": "blue"}, {"id": 70, "last": "Tucker", "first": "Scott", "condo": 105, "color": "white"}, {"id": 71, "last": "Tyler", "first": "Bryan ", "condo": 111, "color": "black"}, {"id": 72, "last": "Young", "first": "Jimmy", "condo": 107, "color": "black"}], "matches": {"thuPM": {"1": {"hole": "8", "partner": 31, "score": null}, "2": {"hole": "2", "partner": 28, "score": null}, "3": {"hole": "1-B", "partner": 58, "score": null}, "4": {"hole": "16", "partner": 60, "score": null}, "5": {"hole": "17", "partner": 67, "score": null}, "6": {"hole": "9", "partner": 61, "score": null}, "7": {"hole": "16", "partner": 63, "score": null}, "8": {"hole": "3", "partner": 16, "score": null}, "9": {"hole": "3", "partner": 24, "score": null}, "10": {"hole": "7-B", "partner": 56, "score": null}, "11": {"hole": "5-B", "partner": 54, "score": null}, "12": {"hole": "1-A", "partner": 68, "score": null}, "13": {"hole": "11", "partner": 49, "score": null}, "14": {"hole": "5-A", "partner": 37, "score": null}, "15": {"hole": "1-A", "partner": 70, "score": null}, "16": {"hole": "3", "partner": 8, "score": null}, "17": {"hole": "2", "partner": 36, "score": null}, "18": {"hole": "18", "partner": 20, "score": null}, "19": {"hole": "4", "partner": 42, "score": null}, "20": {"hole": "18", "partner": 18, "score": null}, "21": {"hole": "6", "partner": 35, "score": null}, "22": {"hole": "1-B", "partner": 43, "score": null}, "23": {"hole": "15", "partner": 51, "score": null}, "24": {"hole": "3", "partner": 9, "score": null}, "25": {"hole": "4", "partner": 29, "score": null}, "26": {"hole": "7-A", "partner": 69, "score": null}, "27": {"hole": "7-B", "partner": 72, "score": null}, "28": {"hole": "2", "partner": 2, "score": null}, "29": {"hole": "4", "partner": 25, "score": null}, "30": {"hole": "6", "partner": 46, "score": null}, "31": {"hole": "8", "partner": 1, "score": null}, "32": {"hole": "18", "partner": 52, "score": null}, "33": {"hole": "7-A", "partner": 62, "score": null}, "34": {"hole": "5-B", "partner": 53, "score": null}, "35": {"hole": "6", "partner": 21, "score": null}, "36": {"hole": "2", "partner": 17, "score": null}, "37": {"hole": "5-A", "partner": 14, "score": null}, "38": {"hole": "11", "partner": 55, "score": null}, "39": {"hole": "8", "partner": 40, "score": null}, "40": {"hole": "8", "partner": 39, "score": null}, "41": {"hole": "17", "partner": 71, "score": null}, "42": {"hole": "4", "partner": 19, "score": null}, "43": {"hole": "1-B", "partner": 22, "score": null}, "44": {"hole": "10", "partner": 47, "score": null}, "45": {"hole": "5-A", "partner": 57, "score": null}, "46": {"hole": "6", "partner": 30, "score": null}, "47": {"hole": "10", "partner": 44, "score": null}, "48": {"hole": "10", "partner": 59, "score": null}, "49": {"hole": "11", "partner": 13, "score": null}, "50": {"hole": "15", "partner": 65, "score": null}, "51": {"hole": "15", "partner": 23, "score": null}, "52": {"hole": "18", "partner": 32, "score": null}, "53": {"hole": "5-B", "partner": 34, "score": null}, "54": {"hole": "5-B", "partner": 11, "score": null}, "55": {"hole": "11", "partner": 38, "score": null}, "56": {"hole": "7-B", "partner": 10, "score": null}, "57": {"hole": "5-A", "partner": 45, "score": null}, "58": {"hole": "1-B", "partner": 3, "score": null}, "59": {"hole": "10", "partner": 48, "score": null}, "60": {"hole": "16", "partner": 4, "score": null}, "61": {"hole": "9", "partner": 6, "score": null}, "62": {"hole": "7-A", "partner": 33, "score": null}, "63": {"hole": "16", "partner": 7, "score": null}, "64": {"hole": "9", "partner": 66, "score": null}, "65": {"hole": "15", "partner": 50, "score": null}, "66": {"hole": "9", "partner": 64, "score": null}, "67": {"hole": "17", "partner": 5, "score": null}, "68": {"hole": "1-A", "partner": 12, "score": null}, "69": {"hole": "7-A", "partner": 26, "score": null}, "70": {"hole": "1-A", "partner": 15, "score": null}, "71": {"hole": "17", "partner": 41, "score": null}, "72": {"hole": "7-B", "partner": 27, "score": null}}, "friAM": {"1": {"hole": "9", "partner": 2, "score": null}, "2": {"hole": "9", "partner": 1, "score": null}, "3": {"hole": "2", "partner": 57, "score": null}, "4": {"hole": "13-B", "partner": 6, "score": null}, "5": {"hole": "11", "partner": 51, "score": null}, "6": {"hole": "13-B", "partner": 4, "score": null}, "7": {"hole": "7-B", "partner": 8, "score": null}, "8": {"hole": "7-B", "partner": 7, "score": null}, "9": {"hole": "16", "partner": 21, "score": null}, "10": {"hole": "7-A", "partner": 23, "score": null}, "11": {"hole": "9", "partner": 24, "score": null}, "12": {"hole": "1", "partner": 34, "score": null}, "13": {"hole": "2", "partner": 15, "score": null}, "14": {"hole": "8", "partner": 17, "score": null}, "15": {"hole": "2", "partner": 13, "score": null}, "16": {"hole": "15", "partner": 38, "score": null}, "17": {"hole": "8", "partner": 14, "score": null}, "18": {"hole": "7-A", "partner": 49, "score": null}, "19": {"hole": "16", "partner": 67, "score": null}, "20": {"hole": "4", "partner": 60, "score": null}, "21": {"hole": "16", "partner": 9, "score": null}, "22": {"hole": "7-B", "partner": 40, "score": null}, "23": {"hole": "7-A", "partner": 10, "score": null}, "24": {"hole": "9", "partner": 11, "score": null}, "25": {"hole": "1", "partner": 65, "score": null}, "26": {"hole": "12", "partner": 55, "score": null}, "27": {"hole": "5", "partner": 41, "score": null}, "28": {"hole": "6", "partner": 56, "score": null}, "29": {"hole": "10", "partner": 72, "score": null}, "30": {"hole": "3", "partner": 53, "score": null}, "31": {"hole": "13-B", "partner": 45, "score": null}, "32": {"hole": "8", "partner": 69, "score": null}, "33": {"hole": "14", "partner": 35, "score": null}, "34": {"hole": "1", "partner": 12, "score": null}, "35": {"hole": "14", "partner": 33, "score": null}, "36": {"hole": "15", "partner": 50, "score": null}, "37": {"hole": "13-A", "partner": 71, "score": null}, "38": {"hole": "15", "partner": 16, "score": null}, "39": {"hole": "12", "partner": 59, "score": null}, "40": {"hole": "7-B", "partner": 22, "score": null}, "41": {"hole": "5", "partner": 27, "score": null}, "42": {"hole": "14", "partner": 47, "score": null}, "43": {"hole": "3", "partner": 48, "score": null}, "44": {"hole": "4", "partner": 58, "score": null}, "45": {"hole": "13-B", "partner": 31, "score": null}, "46": {"hole": "5", "partner": 68, "score": null}, "47": {"hole": "14", "partner": 42, "score": null}, "48": {"hole": "3", "partner": 43, "score": null}, "49": {"hole": "7-A", "partner": 18, "score": null}, "50": {"hole": "15", "partner": 36, "score": null}, "51": {"hole": "11", "partner": 5, "score": null}, "52": {"hole": "13-A", "partner": 64, "score": null}, "53": {"hole": "3", "partner": 30, "score": null}, "54": {"hole": "6", "partner": 62, "score": null}, "55": {"hole": "12", "partner": 26, "score": null}, "56": {"hole": "6", "partner": 28, "score": null}, "57": {"hole": "2", "partner": 3, "score": null}, "58": {"hole": "4", "partner": 44, "score": null}, "59": {"hole": "12", "partner": 39, "score": null}, "60": {"hole": "4", "partner": 20, "score": null}, "61": {"hole": "11", "partner": 70, "score": null}, "62": {"hole": "6", "partner": 54, "score": null}, "63": {"hole": "10", "partner": 66, "score": null}, "64": {"hole": "13-A", "partner": 52, "score": null}, "65": {"hole": "1", "partner": 25, "score": null}, "66": {"hole": "10", "partner": 63, "score": null}, "67": {"hole": "16", "partner": 19, "score": null}, "68": {"hole": "5", "partner": 46, "score": null}, "69": {"hole": "8", "partner": 32, "score": null}, "70": {"hole": "11", "partner": 61, "score": null}, "71": {"hole": "13-A", "partner": 37, "score": null}, "72": {"hole": "10", "partner": 29, "score": null}}, "friPM": {"1": {"hole": "3", "partner": 28, "score": null}, "2": {"hole": "1", "partner": 44, "score": null}, "3": {"hole": "2", "partner": 40, "score": null}, "4": {"hole": "4", "partner": 66, "score": null}, "5": {"hole": "6", "partner": 72, "score": null}, "6": {"hole": "3", "partner": 9, "score": null}, "7": {"hole": "5", "partner": 30, "score": null}, "8": {"hole": "1", "partner": 52, "score": null}, "9": {"hole": "3", "partner": 6, "score": null}, "10": {"hole": "6", "partner": 45, "score": null}, "11": {"hole": "1", "partner": 49, "score": null}, "12": {"hole": "3", "partner": 16, "score": null}, "13": {"hole": "2", "partner": 24, "score": null}, "14": {"hole": "4", "partner": 65, "score": null}, "15": {"hole": "3", "partner": 55, "score": null}, "16": {"hole": "3", "partner": 12, "score": null}, "17": {"hole": "3", "partner": 43, "score": null}, "18": {"hole": "1", "partner": 38, "score": null}, "19": {"hole": "5", "partner": 56, "score": null}, "20": {"hole": "6", "partner": 26, "score": null}, "21": {"hole": "5", "partner": 61, "score": null}, "22": {"hole": "2", "partner": 25, "score": null}, "23": {"hole": "4", "partner": 27, "score": null}, "24": {"hole": "2", "partner": 13, "score": null}, "25": {"hole": "2", "partner": 22, "score": null}, "26": {"hole": "6", "partner": 20, "score": null}, "27": {"hole": "4", "partner": 23, "score": null}, "28": {"hole": "3", "partner": 1, "score": null}, "29": {"hole": "5", "partner": 50, "score": null}, "30": {"hole": "5", "partner": 7, "score": null}, "31": {"hole": "4", "partner": 57, "score": null}, "32": {"hole": "6", "partner": 53, "score": null}, "33": {"hole": "4", "partner": 35, "score": null}, "34": {"hole": "2", "partner": 68, "score": null}, "35": {"hole": "4", "partner": 33, "score": null}, "36": {"hole": "1", "partner": 71, "score": null}, "37": {"hole": "6", "partner": 41, "score": null}, "38": {"hole": "1", "partner": 18, "score": null}, "39": {"hole": "5", "partner": 51, "score": null}, "40": {"hole": "2", "partner": 3, "score": null}, "41": {"hole": "6", "partner": 37, "score": null}, "42": {"hole": "2", "partner": 47, "score": null}, "43": {"hole": "3", "partner": 17, "score": null}, "44": {"hole": "1", "partner": 2, "score": null}, "45": {"hole": "6", "partner": 10, "score": null}, "46": {"hole": "4", "partner": 63, "score": null}, "47": {"hole": "2", "partner": 42, "score": null}, "48": {"hole": "3", "partner": 58, "score": null}, "49": {"hole": "1", "partner": 11, "score": null}, "50": {"hole": "5", "partner": 29, "score": null}, "51": {"hole": "5", "partner": 39, "score": null}, "52": {"hole": "1", "partner": 8, "score": null}, "53": {"hole": "6", "partner": 32, "score": null}, "54": {"hole": "6", "partner": 62, "score": null}, "55": {"hole": "3", "partner": 15, "score": null}, "56": {"hole": "5", "partner": 19, "score": null}, "57": {"hole": "4", "partner": 31, "score": null}, "58": {"hole": "3", "partner": 48, "score": null}, "59": {"hole": "1", "partner": 67, "score": null}, "60": {"hole": "5", "partner": 69, "score": null}, "61": {"hole": "5", "partner": 21, "score": null}, "62": {"hole": "6", "partner": 54, "score": null}, "63": {"hole": "4", "partner": 46, "score": null}, "64": {"hole": "2", "partner": 70, "score": null}, "65": {"hole": "4", "partner": 14, "score": null}, "66": {"hole": "4", "partner": 4, "score": null}, "67": {"hole": "1", "partner": 59, "score": null}, "68": {"hole": "2", "partner": 34, "score": null}, "69": {"hole": "5", "partner": 60, "score": null}, "70": {"hole": "2", "partner": 64, "score": null}, "71": {"hole": "1", "partner": 36, "score": null}, "72": {"hole": "6", "partner": 5, "score": null}}, "satAM": {"1": {"hole": "18", "partner": 39, "score": null, "startTime": "8:00 AM"}, "2": {"hole": "12", "partner": 36, "score": null, "startTime": "9:30 AM"}, "3": {"hole": "13", "partner": 22, "score": null, "startTime": "8:00 AM"}, "4": {"hole": "10", "partner": 52, "score": null, "startTime": "9:30 AM"}, "5": {"hole": "10", "partner": 65, "score": null, "startTime": "9:30 AM"}, "6": {"hole": "17", "partner": 66, "score": null, "startTime": "8:00 AM"}, "7": {"hole": "11", "partner": 20, "score": null, "startTime": "9:30 AM"}, "8": {"hole": "14", "partner": 11, "score": null, "startTime": "9:30 AM"}, "9": {"hole": "13", "partner": 16, "score": null, "startTime": "8:00 AM"}, "10": {"hole": "14", "partner": 14, "score": null, "startTime": "8:00 AM"}, "11": {"hole": "14", "partner": 8, "score": null, "startTime": "9:30 AM"}, "12": {"hole": "13", "partner": 24, "score": null, "startTime": "9:30 AM"}, "13": {"hole": "18", "partner": 64, "score": null, "startTime": "9:30 AM"}, "14": {"hole": "14", "partner": 10, "score": null, "startTime": "8:00 AM"}, "15": {"hole": "12", "partner": 34, "score": null, "startTime": "9:30 AM"}, "16": {"hole": "13", "partner": 9, "score": null, "startTime": "8:00 AM"}, "17": {"hole": "12", "partner": 42, "score": null, "startTime": "8:00 AM"}, "18": {"hole": "11", "partner": 32, "score": null, "startTime": "8:00 AM"}, "19": {"hole": "15", "partner": 72, "score": null, "startTime": "8:00 AM"}, "20": {"hole": "11", "partner": 7, "score": null, "startTime": "9:30 AM"}, "21": {"hole": "15", "partner": 30, "score": null, "startTime": "8:00 AM"}, "22": {"hole": "13", "partner": 3, "score": null, "startTime": "8:00 AM"}, "23": {"hole": "11", "partner": 50, "score": null, "startTime": "8:00 AM"}, "24": {"hole": "13", "partner": 12, "score": null, "startTime": "9:30 AM"}, "25": {"hole": "13", "partner": 58, "score": null, "startTime": "9:30 AM"}, "26": {"hole": "14", "partner": 54, "score": null, "startTime": "8:00 AM"}, "27": {"hole": "15", "partner": 56, "score": null, "startTime": "9:30 AM"}, "28": {"hole": "14", "partner": 43, "score": null, "startTime": "9:30 AM"}, "29": {"hole": "16", "partner": 57, "score": null, "startTime": "9:30 AM"}, "30": {"hole": "15", "partner": 21, "score": null, "startTime": "8:00 AM"}, "31": {"hole": "18", "partner": 59, "score": null, "startTime": "9:30 AM"}, "32": {"hole": "11", "partner": 18, "score": null, "startTime": "8:00 AM"}, "33": {"hole": "16", "partner": 69, "score": null, "startTime": "8:00 AM"}, "34": {"hole": "12", "partner": 15, "score": null, "startTime": "9:30 AM"}, "35": {"hole": "15", "partner": 53, "score": null, "startTime": "9:30 AM"}, "36": {"hole": "12", "partner": 2, "score": null, "startTime": "9:30 AM"}, "37": {"hole": "16", "partner": 45, "score": null, "startTime": "8:00 AM"}, "38": {"hole": "18", "partner": 49, "score": null, "startTime": "8:00 AM"}, "39": {"hole": "18", "partner": 1, "score": null, "startTime": "8:00 AM"}, "40": {"hole": "17", "partner": 44, "score": null, "startTime": "9:30 AM"}, "41": {"hole": "10", "partner": 67, "score": null, "startTime": "8:00 AM"}, "42": {"hole": "12", "partner": 17, "score": null, "startTime": "8:00 AM"}, "43": {"hole": "14", "partner": 28, "score": null, "startTime": "9:30 AM"}, "44": {"hole": "17", "partner": 40, "score": null, "startTime": "9:30 AM"}, "45": {"hole": "16", "partner": 37, "score": null, "startTime": "8:00 AM"}, "46": {"hole": "16", "partner": 62, "score": null, "startTime": "9:30 AM"}, "47": {"hole": "17", "partner": 48, "score": null, "startTime": "8:00 AM"}, "48": {"hole": "17", "partner": 47, "score": null, "startTime": "8:00 AM"}, "49": {"hole": "18", "partner": 38, "score": null, "startTime": "8:00 AM"}, "50": {"hole": "11", "partner": 23, "score": null, "startTime": "8:00 AM"}, "51": {"hole": "11", "partner": 71, "score": null, "startTime": "9:30 AM"}, "52": {"hole": "10", "partner": 4, "score": null, "startTime": "9:30 AM"}, "53": {"hole": "15", "partner": 35, "score": null, "startTime": "9:30 AM"}, "54": {"hole": "14", "partner": 26, "score": null, "startTime": "8:00 AM"}, "55": {"hole": "17", "partner": 61, "score": null, "startTime": "9:30 AM"}, "56": {"hole": "15", "partner": 27, "score": null, "startTime": "9:30 AM"}, "57": {"hole": "16", "partner": 29, "score": null, "startTime": "9:30 AM"}, "58": {"hole": "13", "partner": 25, "score": null, "startTime": "9:30 AM"}, "59": {"hole": "18", "partner": 31, "score": null, "startTime": "9:30 AM"}, "60": {"hole": "10", "partner": 63, "score": null, "startTime": "8:00 AM"}, "61": {"hole": "17", "partner": 55, "score": null, "startTime": "9:30 AM"}, "62": {"hole": "16", "partner": 46, "score": null, "startTime": "9:30 AM"}, "63": {"hole": "10", "partner": 60, "score": null, "startTime": "8:00 AM"}, "64": {"hole": "18", "partner": 13, "score": null, "startTime": "9:30 AM"}, "65": {"hole": "10", "partner": 5, "score": null, "startTime": "9:30 AM"}, "66": {"hole": "17", "partner": 6, "score": null, "startTime": "8:00 AM"}, "67": {"hole": "10", "partner": 41, "score": null, "startTime": "8:00 AM"}, "68": {"hole": "12", "partner": 70, "score": null, "startTime": "8:00 AM"}, "69": {"hole": "16", "partner": 33, "score": null, "startTime": "8:00 AM"}, "70": {"hole": "12", "partner": 68, "score": null, "startTime": "8:00 AM"}, "71": {"hole": "11", "partner": 51, "score": null, "startTime": "9:30 AM"}, "72": {"hole": "15", "partner": 19, "score": null, "startTime": "8:00 AM"}}, "satPM": {"1": {"hole": "14", "partner": 40, "score": null}, "2": {"hole": "7", "partner": 17, "score": null}, "3": {"hole": "5-A", "partner": 43, "score": null}, "4": {"hole": "1", "partner": 50, "score": null}, "5": {"hole": "3", "partner": 41, "score": null}, "6": {"hole": "14", "partner": 64, "score": null}, "7": {"hole": "2", "partner": 60, "score": null}, "8": {"hole": "7", "partner": 9, "score": null}, "9": {"hole": "7", "partner": 8, "score": null}, "10": {"hole": "12", "partner": 27, "score": null}, "11": {"hole": "8", "partner": 34, "score": null}, "12": {"hole": "5-A", "partner": 70, "score": null}, "13": {"hole": "15", "partner": 48, "score": null}, "14": {"hole": "11", "partner": 45, "score": null}, "15": {"hole": "5-B", "partner": 68, "score": null}, "16": {"hole": "6", "partner": 24, "score": null}, "17": {"hole": "7", "partner": 2, "score": null}, "18": {"hole": "4", "partner": 52, "score": null}, "19": {"hole": "9", "partner": 29, "score": null}, "20": {"hole": "3", "partner": 32, "score": null}, "21": {"hole": "11", "partner": 46, "score": null}, "22": {"hole": "5-B", "partner": 58, "score": null}, "23": {"hole": "2", "partner": 65, "score": null}, "24": {"hole": "6", "partner": 16, "score": null}, "25": {"hole": "8", "partner": 42, "score": null}, "26": {"hole": "13-B", "partner": 33, "score": null}, "27": {"hole": "12", "partner": 10, "score": null}, "28": {"hole": "6", "partner": 36, "score": null}, "29": {"hole": "9", "partner": 19, "score": null}, "30": {"hole": "10", "partner": 35, "score": null}, "31": {"hole": "13-A", "partner": 39, "score": null}, "32": {"hole": "3", "partner": 20, "score": null}, "33": {"hole": "13-B", "partner": 26, "score": null}, "34": {"hole": "8", "partner": 11, "score": null}, "35": {"hole": "10", "partner": 30, "score": null}, "36": {"hole": "6", "partner": 28, "score": null}, "37": {"hole": "10", "partner": 57, "score": null}, "38": {"hole": "15", "partner": 44, "score": null}, "39": {"hole": "13-A", "partner": 31, "score": null}, "40": {"hole": "14", "partner": 1, "score": null}, "41": {"hole": "3", "partner": 5, "score": null}, "42": {"hole": "8", "partner": 25, "score": null}, "43": {"hole": "5-A", "partner": 3, "score": null}, "44": {"hole": "15", "partner": 38, "score": null}, "45": {"hole": "11", "partner": 14, "score": null}, "46": {"hole": "11", "partner": 21, "score": null}, "47": {"hole": "16", "partner": 59, "score": null}, "48": {"hole": "15", "partner": 13, "score": null}, "49": {"hole": "16", "partner": 55, "score": null}, "50": {"hole": "1", "partner": 4, "score": null}, "51": {"hole": "1", "partner": 63, "score": null}, "52": {"hole": "4", "partner": 18, "score": null}, "53": {"hole": "9", "partner": 54, "score": null}, "54": {"hole": "9", "partner": 53, "score": null}, "55": {"hole": "16", "partner": 49, "score": null}, "56": {"hole": "13-B", "partner": 72, "score": null}, "57": {"hole": "10", "partner": 37, "score": null}, "58": {"hole": "5-B", "partner": 22, "score": null}, "59": {"hole": "16", "partner": 47, "score": null}, "60": {"hole": "2", "partner": 7, "score": null}, "61": {"hole": "13-A", "partner": 66, "score": null}, "62": {"hole": "12", "partner": 69, "score": null}, "63": {"hole": "1", "partner": 51, "score": null}, "64": {"hole": "14", "partner": 6, "score": null}, "65": {"hole": "2", "partner": 23, "score": null}, "66": {"hole": "13-A", "partner": 61, "score": null}, "67": {"hole": "4", "partner": 71, "score": null}, "68": {"hole": "5-B", "partner": 15, "score": null}, "69": {"hole": "12", "partner": 62, "score": null}, "70": {"hole": "5-A", "partner": 12, "score": null}, "71": {"hole": "4", "partner": 67, "score": null}, "72": {"hole": "13-B", "partner": 56, "score": null}}}}</script>
+<script>
+(function(){
+  const MATCHES = [
+    {key:'thuPM', label:'Thu PM', full:'Thursday PM', hasScore:false},
+    {key:'friAM', label:'Fri AM', full:'Friday AM', hasScore:true},
+    {key:'friPM', label:'Fri PM', full:'Friday PM', hasScore:true},
+    {key:'satAM', label:'Sat AM', full:'Saturday AM', hasScore:true},
+    {key:'satPM', label:'Sat PM', full:'Saturday PM', hasScore:true}
+  ];
+  const COLOR_HEX = { red:'#FF0000', blue:'#0066CC', black:'#000000', white:'#F7F5EE' };
+  const EDIT_CODE = 'olde26';
+  const DATA_VERSION = 4;
+  const MATCH_INFO = {
+    thuPM: { type:'2 Man Scramble', time:'1:00 PM',
+      rules:'Double bogey maximum with the exception of those groups teeing off from gold tees, triple max for them.' },
+    friAM: { type:'2 Man - 1 Best Net Texas Scramble', time:'9:00 AM',
+      rules:'Both players tee off, use best drive, then play your own ball thru the hole. Handicaps are indicated on scorecard.\nEach player must use minimum of 5 tee shots. There are 18 holes in total. 13 holes to f*** off. Record one best NET score.' },
+    friPM: { type:'Mayhem', time:'2:30 PM',
+      rules:'Shotgun start on holes 1-6 \u2014 stay on the front nine. Do not play holes 10-18.\nThis is a 12 person per hole alternate shot shootout. No fighting before dinner.' },
+    satAM: { type:'Par 3', time:'8:00 & 9:30 AM (see player times below)',
+      rules:'Shotgun start holes 10-18. Play the back nine only. Do not play holes 1-9.\nTee boxes are marked with signs, please take care of the turf \u2014 we can\u2019t leave 64 divots 125 yards out in the fairway. Gill will be hitting woods so that will help.' },
+    satPM: { type:'Singles - 3 Matches of 6 Holes Each', time:'1:00 PM',
+      rules:'You play a 6 hole match against each person in your foursome.\nHoles 1-6 is a match, holes 7-12 is a different match, holes 13-18 is a different match.\nThe match holes are locked. You may start in the middle of a match hole wise. After 12 beers, objects in your mirror can appear more complicated than they really are.' }
+  };
+
+  const MATCH_COLORS = {
+    thuPM: '#C89B3C',
+    friAM: '#3E8E7E',
+    friPM: '#8B5FBF',
+    satAM: '#D9822B',
+    satPM: '#C2478D'
+  };
+
+  const SEED = JSON.parse(document.getElementById('seedData').textContent);
+
+  let editMode = false;
+  let activeMatch = 'thuPM';
+  let players = [];
+  let matches = {};
+  let condoNotes = {};
+  let rosterFilter = '';
+  let expandedId = null;
+
+  function playerById(id){ return players.find(p=>p.id===id); }
+
+  function seedMatches(){
+    const m = {};
+    MATCHES.forEach(mm=>{
+      const assign = {};
+      const src = SEED.matches[mm.key] || {};
+      Object.keys(src).forEach(pid=>{ assign[pid] = { hole: src[pid].hole, partner: src[pid].partner, score: src[pid].score, startTime: src[pid].startTime || null }; });
+      const info = MATCH_INFO[mm.key] || { type:'', time:'', rules:'' };
+      m[mm.key] = { gameType: info.type, startTime: info.time, scoring: info.rules || '', assignments: assign };
+    });
+    return m;
+  }
+
+  const hasStorage = typeof window.storage === 'object' && window.storage !== null;
+  async function safeGet(key, shared){
+    if(!hasStorage) return null;
+    try{ return await window.storage.get(key, shared); }catch(e){ return null; }
+  }
+  async function safeSet(key, value, shared){
+    if(!hasStorage) return null;
+    try{ return await window.storage.set(key, value, shared); }catch(e){ return null; }
+  }
+
+  async function loadAll(){
+    let needsReseed = false;
+    const vr = await safeGet('data-version', true);
+    const storedVersion = vr ? JSON.parse(vr.value) : 0;
+    if(storedVersion !== DATA_VERSION){
+      needsReseed = true;
+      await safeSet('data-version', JSON.stringify(DATA_VERSION), true);
+    }
+
+    const rr = needsReseed ? null : await safeGet('roster', true);
+    players = rr ? JSON.parse(rr.value) : SEED.players.slice();
+    if(!rr) await safeSet('roster', JSON.stringify(players), true);
+
+    const defaultMatches = seedMatches();
+    matches = {};
+    for(const mm of MATCHES){
+      const mr = needsReseed ? null : await safeGet('match-'+mm.key, true);
+      let loaded = mr ? JSON.parse(mr.value) : defaultMatches[mm.key];
+      const info = MATCH_INFO[mm.key] || { type:'', time:'' };
+      let changed = needsReseed;
+      if(!loaded.gameType){ loaded.gameType = info.type; changed = true; }
+      if(!loaded.startTime){ loaded.startTime = info.time; changed = true; }
+      if(!loaded.scoring && info.rules){ loaded.scoring = info.rules; changed = true; }
+      if(loaded.scoring && loaded.scoring.includes('this can get wonky')){
+        loaded.scoring = loaded.scoring.replace('After 12 beers, this can get wonky.', 'After 12 beers, objects in your mirror can appear more complicated than they really are.');
+        changed = true;
+      }
+      matches[mm.key] = loaded;
+      if(changed){
+        await safeSet('match-'+mm.key, JSON.stringify(matches[mm.key]), true);
+      }
+    }
+
+    const cr = await safeGet('condo-notes', true);
+    condoNotes = cr ? JSON.parse(cr.value) : {};
+    if(!cr) await safeSet('condo-notes', JSON.stringify(condoNotes), true);
+  }
+
+  function showToast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'), 2400);
+  }
+
+  async function saveAll(){
+    if(!hasStorage){
+      showToast('This page needs to be published/opened via its live link for edits to save.');
+      return;
+    }
+    try{
+      await window.storage.set('roster', JSON.stringify(players), true);
+      for(const mm of MATCHES){
+        await window.storage.set('match-'+mm.key, JSON.stringify(matches[mm.key]), true);
+      }
+      await window.storage.set('condo-notes', JSON.stringify(condoNotes), true);
+      document.getElementById('updatedLine').textContent = 'Last updated ' + new Date().toLocaleString();
+      showToast('Saved \u2014 everyone with the link will see this.');
+    }catch(e){
+      showToast('Save failed \u2014 check your connection and try again.');
+    }
+  }
+
+  function matchSnapshotForPlayer(pid){
+    return MATCHES.map(mm=>{
+      const a = matches[mm.key].assignments[pid];
+      if(!a) return {label:mm.full, hole:null, partnerName:null, score:null, startTime:null};
+      const partner = playerById(a.partner);
+      return { label:mm.full, hole:a.hole, partnerName: partner ? partner.first+' '+partner.last : null, score:a.score, startTime: a.startTime || null };
+    });
+  }
+
+  function renderRoster(){
+    const table = document.getElementById('rosterTable');
+    table.innerHTML = '';
+    if(table._hintEl){ table._hintEl.remove(); table._hintEl = null; }
+
+    if(!rosterFilter.trim()){
+      document.getElementById('rosterCount').textContent = players.length + ' golfers \u2014 start typing to search';
+      const hint = document.createElement('div');
+      hint.className = 'static-note';
+      hint.style.padding = '18px 4px';
+      hint.style.color = 'var(--ink-soft)';
+      hint.style.fontSize = '13.5px';
+      hint.textContent = 'Type a name above to see golfers here.';
+      table.parentElement.appendChild(hint);
+      table._hintEl = hint;
+      return;
+    }
+
+    const thead = document.createElement('thead');
+    thead.innerHTML = '<tr><th></th><th>Name</th><th>Team</th><th>Condo</th></tr>';
+    table.appendChild(thead);
+    const tbody = document.createElement('tbody');
+
+    const filtered = players.filter(p=>{
+      const full = (p.first+' '+p.last).toLowerCase();
+      return full.includes(rosterFilter.toLowerCase());
+    });
+    document.getElementById('rosterCount').textContent = filtered.length + ' of ' + players.length + ' golfers';
+
+    filtered.sort((a,b)=> a.last.localeCompare(b.last) || a.first.localeCompare(b.first)).forEach(p=>{
+      const tr = document.createElement('tr');
+      tr.className = 'player-row';
+
+      const tdChevron = document.createElement('td');
+      tdChevron.innerHTML = '<span class="chevron">'+(expandedId===p.id ? '\u25BE' : '\u25B8')+'</span>'
+        + (expandedId===p.id ? '' : '<span class="expand-hint">expand</span>');
+      tr.appendChild(tdChevron);
+
+      const tdName = document.createElement('td');
+      if(editMode){
+        const wrap = document.createElement('div');
+        wrap.style.display = 'flex'; wrap.style.gap='4px';
+        const fi = document.createElement('input'); fi.value = p.first; fi.style.width='70px';
+        fi.oninput = (e)=>{ p.first = e.target.value; };
+        const li = document.createElement('input'); li.value = p.last; li.style.width='80px';
+        li.oninput = (e)=>{ p.last = e.target.value; };
+        wrap.appendChild(fi); wrap.appendChild(li);
+        tdName.appendChild(wrap);
+      }else{
+        const nc = document.createElement('div');
+        nc.className = 'name-cell';
+        const dot = document.createElement('span'); dot.className='dot'; dot.style.width='9px'; dot.style.height='9px'; dot.style.borderRadius='50%'; dot.style.background = COLOR_HEX[p.color]; dot.style.border='1px solid rgba(0,0,0,0.15)';
+        nc.appendChild(dot);
+        const span = document.createElement('span'); span.textContent = p.first+' '+p.last;
+        nc.appendChild(span);
+        tdName.appendChild(nc);
+      }
+      tr.appendChild(tdName);
+
+      const tdTeam = document.createElement('td');
+      if(editMode){
+        const sel = document.createElement('select');
+        Object.keys(COLOR_HEX).forEach(c=>{
+          const opt = document.createElement('option'); opt.value=c; opt.textContent=c;
+          if(c===p.color) opt.selected = true;
+          sel.appendChild(opt);
+        });
+        sel.onchange = (e)=>{ p.color = e.target.value; };
+        tdTeam.appendChild(sel);
+      }else{
+        tdTeam.textContent = p.color.charAt(0).toUpperCase()+p.color.slice(1);
+      }
+      tr.appendChild(tdTeam);
+
+      const tdCondo = document.createElement('td');
+      if(editMode){
+        const inp = document.createElement('input'); inp.type='number'; inp.value = p.condo; inp.style.width='70px';
+        inp.oninput = (e)=>{ p.condo = Number(e.target.value); };
+        tdCondo.appendChild(inp);
+      }else{
+        tdCondo.textContent = p.condo;
+      }
+      tr.appendChild(tdCondo);
+
+      tr.onclick = (e)=>{
+        if(e.target.tagName==='INPUT' || e.target.tagName==='SELECT') return;
+        expandedId = expandedId===p.id ? null : p.id;
+        renderRoster();
+      };
+      tbody.appendChild(tr);
+
+      if(expandedId===p.id){
+        const trExpand = document.createElement('tr');
+        const td = document.createElement('td');
+        td.colSpan = 4;
+        td.className = 'expand-panel';
+        const grid = document.createElement('div');
+        grid.className = 'expand-grid';
+        matchSnapshotForPlayer(p.id).forEach(snap=>{
+          const item = document.createElement('div');
+          item.className = 'expand-item';
+          item.innerHTML = '<div class="m">'+snap.label+'</div>'
+            + '<div class="v">'+(snap.hole ? 'Hole '+snap.hole : 'TBD')+(snap.startTime ? ' \u00b7 '+snap.startTime : '')+'</div>'
+            + '<div class="s">'+(snap.partnerName ? 'With '+snap.partnerName : 'No partner set')
+            + (snap.score!=null ? ' \u00b7 Score '+snap.score : '')+'</div>';
+          grid.appendChild(item);
+        });
+        td.appendChild(grid);
+        trExpand.appendChild(td);
+        tbody.appendChild(trExpand);
+      }
+    });
+    table.appendChild(tbody);
+  }
+
+  function renderCondos(){
+    const el = document.getElementById('condoGrid');
+    el.innerHTML = '';
+    const condos = Array.from(new Set(players.map(p=>p.condo))).sort((a,b)=>a-b);
+    condos.forEach(c=>{
+      const card = document.createElement('div');
+      card.className = 'condo-card';
+      const num = document.createElement('div'); num.className='cnum'; num.textContent = 'Condo '+c;
+      card.appendChild(num);
+      const names = players.filter(p=>p.condo===c).map(p=>p.first+' '+p.last).join(', ');
+      const pl = document.createElement('div'); pl.className='cplayers'; pl.textContent = names;
+      card.appendChild(pl);
+      if(editMode){
+        const inp = document.createElement('input');
+        inp.className = 'condo-note';
+        inp.placeholder = 'Building / unit detail';
+        inp.value = condoNotes[c] || '';
+        inp.oninput = (e)=>{ condoNotes[c] = e.target.value; };
+        card.appendChild(inp);
+      }else if(condoNotes[c]){
+        const note = document.createElement('div'); note.className='cnote-view'; note.textContent = condoNotes[c];
+        card.appendChild(note);
+      }
+      el.appendChild(card);
+    });
+  }
+
+  function renderMatchTabs(){
+    const el = document.getElementById('matchTabs');
+    el.innerHTML = '';
+    MATCHES.forEach(mm=>{
+      const b = document.createElement('button');
+      const color = MATCH_COLORS[mm.key];
+      const isActive = mm.key===activeMatch;
+      b.className = isActive ? 'active' : '';
+      b.textContent = mm.label;
+      b.style.borderColor = color;
+      if(isActive){
+        b.style.background = color + '26';
+        b.style.color = color;
+      }else{
+        b.style.background = color + '10';
+      }
+      b.onclick = ()=>{ activeMatch = mm.key; renderSchedule(); };
+      el.appendChild(b);
+    });
+  }
+
+  function renderMatchMeta(){
+    const el = document.getElementById('matchMeta');
+    el.innerHTML = '';
+    const mstate = matches[activeMatch];
+
+    const stCard = document.createElement('div');
+    stCard.className = 'meta-card';
+    stCard.innerHTML = '<div class="lbl">Start time</div>';
+    if(editMode){
+      const inp = document.createElement('input');
+      inp.value = mstate.startTime || ''; inp.placeholder = 'e.g. 9:00 AM';
+      inp.oninput = (e)=>{ mstate.startTime = e.target.value; };
+      stCard.appendChild(inp);
+    }else{
+      const v = document.createElement('div');
+      v.className = 'val' + (mstate.startTime ? '' : ' tbd');
+      v.textContent = mstate.startTime || 'TBD';
+      stCard.appendChild(v);
+    }
+    el.appendChild(stCard);
+
+    const gtCard = document.createElement('div');
+    gtCard.className = 'meta-card';
+    gtCard.innerHTML = '<div class="lbl">Game type</div>';
+    if(editMode){
+      const inp = document.createElement('input');
+      inp.value = mstate.gameType; inp.placeholder = 'e.g. Two-man scramble';
+      inp.oninput = (e)=>{ mstate.gameType = e.target.value; };
+      gtCard.appendChild(inp);
+    }else{
+      const v = document.createElement('div');
+      v.className = 'val' + (mstate.gameType ? '' : ' tbd');
+      v.textContent = mstate.gameType || 'TBD';
+      gtCard.appendChild(v);
+    }
+    el.appendChild(gtCard);
+
+    const scCard = document.createElement('div');
+    scCard.className = 'meta-card wide';
+    scCard.innerHTML = '<div class="lbl">Scoring rules</div>';
+    if(editMode){
+      const ta = document.createElement('textarea');
+      ta.className = 'rules-textarea';
+      ta.value = mstate.scoring; ta.placeholder = 'e.g. Best ball, net score';
+      ta.oninput = (e)=>{ mstate.scoring = e.target.value; };
+      scCard.appendChild(ta);
+    }else{
+      const v = document.createElement('div');
+      v.className = 'val multiline' + (mstate.scoring ? '' : ' tbd');
+      v.textContent = mstate.scoring || 'TBD';
+      scCard.appendChild(v);
+    }
+    el.appendChild(scCard);
+  }
+
+  function holeSortKey(label){
+    const m = String(label).match(/^(\d+)/);
+    const base = m ? parseInt(m[1],10) : 999;
+    const rest = m ? String(label).slice(m[0].length) : String(label);
+    return { base, rest };
+  }
+
+  function holeGroups(){
+    const assign = matches[activeMatch].assignments;
+    const groups = {};
+    players.forEach(p=>{
+      const a = assign[p.id];
+      if(a && a.hole!=null && String(a.hole).trim()!==''){
+        const label = String(a.hole).trim();
+        if(!groups[label]) groups[label] = [];
+        groups[label].push(p.id);
+      }
+    });
+    return groups;
+  }
+
+  function holeCard(label, ids){
+    const assign = matches[activeMatch].assignments;
+    const mm = MATCHES.find(m=>m.key===activeMatch);
+    const card = document.createElement('div');
+    card.className = 'hole-card';
+    const base = holeSortKey(label).base;
+    const head = document.createElement('div');
+    head.className = 'hole-num';
+    head.innerHTML = '<span class="h">Hole '+label+'</span><span class="tag">'+(base<=9?'front':'back')+' 9</span>';
+    card.appendChild(head);
+
+    const rendered = new Set();
+    let orderedIds = ids;
+    if(mm.key==='satAM'){
+      orderedIds = ids.slice().sort((a,b)=>{
+        const ta = (assign[a]&&assign[a].startTime) || '';
+        const tb = (assign[b]&&assign[b].startTime) || '';
+        return ta.localeCompare(tb) || a-b;
+      });
+    }
+    let lastTimeGroup = null;
+    orderedIds.forEach(id=>{
+      if(rendered.has(id)) return;
+      if(mm.key==='satAM'){
+        const t = (assign[id]&&assign[id].startTime) || 'Time TBD';
+        if(t !== lastTimeGroup){
+          lastTimeGroup = t;
+          const tg = document.createElement('div');
+          tg.className = 'time-group-label';
+          tg.textContent = t;
+          card.appendChild(tg);
+        }
+      }
+      const a = assign[id];
+      const partnerId = a ? a.partner : null;
+      const showPair = partnerId && ids.includes(partnerId) && !rendered.has(partnerId);
+      const pairIds = showPair ? [id, partnerId] : [id];
+      const pairWrap = document.createElement('div');
+      pairWrap.className = 'pair';
+      pairIds.forEach(pid=>{
+        rendered.add(pid);
+        const p = playerById(pid);
+        if(!p) return;
+        const pa = assign[pid] || {};
+        const row = document.createElement('div');
+        row.className = 'slot';
+        const dot = document.createElement('span'); dot.className='dot'; dot.style.background = COLOR_HEX[p.color];
+        row.appendChild(dot);
+        if(editMode){
+          const wrap = document.createElement('div');
+          wrap.className = 'edit-fields';
+          const nm = document.createElement('span'); nm.className='pname'; nm.textContent = p.first+' '+p.last; nm.style.minWidth='90px';
+          wrap.appendChild(nm);
+          const holeInp = document.createElement('input');
+          holeInp.className = 'hole-input'; holeInp.style.width='54px';
+          holeInp.value = pa.hole!=null ? pa.hole : '';
+          holeInp.onchange = (e)=>{ if(!assign[pid]) assign[pid]={hole:null,partner:null,score:null}; assign[pid].hole = e.target.value.trim(); renderSchedule(); };
+          wrap.appendChild(holeInp);
+          const sel = document.createElement('select');
+          sel.className = 'partner-select';
+          const none = document.createElement('option'); none.value=''; none.textContent='no partner';
+          sel.appendChild(none);
+          ids.filter(oid=>oid!==pid).forEach(oid=>{
+            const op = playerById(oid);
+            const opt = document.createElement('option'); opt.value=oid; opt.textContent = op ? op.first+' '+op.last : oid;
+            if(pa.partner===oid) opt.selected = true;
+            sel.appendChild(opt);
+          });
+          sel.onchange = (e)=>{ if(!assign[pid]) assign[pid]={hole:null,partner:null,score:null}; assign[pid].partner = e.target.value ? Number(e.target.value) : null; };
+          wrap.appendChild(sel);
+          if(mm.key==='satAM'){
+            const stInp = document.createElement('input');
+            stInp.className = 'hole-input'; stInp.style.width='70px';
+            stInp.placeholder = 'time';
+            stInp.value = pa.startTime || '';
+            stInp.oninput = (e)=>{ if(!assign[pid]) assign[pid]={hole:null,partner:null,score:null}; assign[pid].startTime = e.target.value; renderSchedule(); };
+            wrap.appendChild(stInp);
+          }
+          if(mm.hasScore){
+            const scInp = document.createElement('input');
+            scInp.className = 'score-input'; scInp.type='number'; scInp.step='0.1';
+            scInp.value = pa.score!=null ? pa.score : '';
+            scInp.oninput = (e)=>{ if(!assign[pid]) assign[pid]={hole:null,partner:null,score:null}; assign[pid].score = e.target.value===''? null : Number(e.target.value); };
+            wrap.appendChild(scInp);
+          }
+          row.appendChild(wrap);
+        }else{
+          const nm = document.createElement('span'); nm.className='pname'; nm.textContent = p.first+' '+p.last;
+          row.appendChild(nm);
+          if(mm.key==='satAM' && pa.startTime){
+            const st = document.createElement('span'); st.className='score-view'; st.textContent = pa.startTime;
+            row.appendChild(st);
+          }
+          if(mm.hasScore && pa.score!=null){
+            const sv = document.createElement('span'); sv.className='score-view'; sv.textContent = pa.score;
+            row.appendChild(sv);
+          }
+        }
+        pairWrap.appendChild(row);
+      });
+      card.appendChild(pairWrap);
+    });
+    return card;
+  }
+
+  function renderSchedule(){
+    renderMatchTabs();
+    renderMatchMeta();
+    document.getElementById('editHint').style.display = editMode ? 'inline-block' : 'none';
+    const mm = MATCHES.find(m=>m.key===activeMatch);
+    document.getElementById('matchNameSuffix').textContent = '- ' + mm.label;
+
+    const groups = holeGroups();
+    const labels = Object.keys(groups).sort((a,b)=>{
+      const ka = holeSortKey(a), kb = holeSortKey(b);
+      return ka.base - kb.base || ka.rest.localeCompare(kb.rest);
+    });
+    const frontLabels = labels.filter(l=>holeSortKey(l).base<=9);
+    const backLabels = labels.filter(l=>holeSortKey(l).base>9);
+
+    const body = document.getElementById('scheduleBody');
+    body.innerHTML = '';
+
+    if(frontLabels.length){
+      const front = document.createElement('div'); front.className='nine-label'; front.textContent='Front nine';
+      body.appendChild(front);
+      const g1 = document.createElement('div'); g1.className='holes-grid';
+      frontLabels.forEach(l=>g1.appendChild(holeCard(l, groups[l])));
+      body.appendChild(g1);
+    }
+
+    if(backLabels.length){
+      const back = document.createElement('div'); back.className='nine-label'; back.textContent='Back nine';
+      body.appendChild(back);
+      const g2 = document.createElement('div'); g2.className='holes-grid';
+      backLabels.forEach(l=>g2.appendChild(holeCard(l, groups[l])));
+      body.appendChild(g2);
+    }
+  }
+
+  function renderSaveBar(){
+    const slot = document.getElementById('saveBarSlot');
+    slot.innerHTML = '';
+    if(!editMode) return;
+    const bar = document.createElement('div');
+    bar.className = 'save-bar';
+    const status = document.createElement('span'); status.className='status';
+    status.textContent = 'Editing \u2014 changes save for everyone with this link.';
+    const btn = document.createElement('button'); btn.textContent = 'Save changes';
+    btn.onclick = saveAll;
+    bar.appendChild(status); bar.appendChild(btn);
+    slot.appendChild(bar);
+  }
+
+  function renderAll(){
+    renderRoster();
+    renderCondos();
+    renderSchedule();
+    renderSaveBar();
+  }
+
+  document.getElementById('rosterSearch').oninput = (e)=>{ rosterFilter = e.target.value; renderRoster(); };
+
+  let lodgingOpen = true;
+  document.getElementById('lodgingToggle').onclick = ()=>{
+    lodgingOpen = !lodgingOpen;
+    document.getElementById('condoGrid').style.display = lodgingOpen ? 'grid' : 'none';
+    document.getElementById('lodgingArrow').innerHTML = lodgingOpen ? '&#9662;' : '&#9656;';
+    document.getElementById('lodgingToggleLabel').textContent = lodgingOpen ? 'Hide' : 'Expand';
+  };
+
+  let rosterOpen = true;
+  document.getElementById('rosterToggle').onclick = ()=>{
+    rosterOpen = !rosterOpen;
+    document.getElementById('rosterBody').style.display = rosterOpen ? 'block' : 'none';
+    document.getElementById('rosterArrow').innerHTML = rosterOpen ? '&#9662;' : '&#9656;';
+    document.getElementById('rosterToggleLabel').textContent = rosterOpen ? 'Hide' : 'Expand';
+  };
+
+  function enterEditMode(){
+    editMode = true;
+    document.getElementById('passcodeBox').style.display = 'none';
+    document.getElementById('passcodeInput').value = '';
+    document.getElementById('editToggle').classList.add('active');
+    document.getElementById('editToggle').style.display = '';
+    document.getElementById('lockIcon').textContent = '\uD83D\uDD13';
+    document.getElementById('lockLabel').textContent = 'Editing';
+    renderAll();
+  }
+
+  function tryPasscode(){
+    const input = document.getElementById('passcodeInput');
+    if(input.value === EDIT_CODE){
+      enterEditMode();
+    }else{
+      showToast('Incorrect passcode.');
+      input.value = '';
+      input.focus();
+    }
+  }
+
+  document.getElementById('editToggle').onclick = ()=>{
+    if(editMode){
+      editMode = false;
+      document.getElementById('editToggle').classList.remove('active');
+      document.getElementById('lockIcon').textContent = '\uD83D\uDD12';
+      document.getElementById('lockLabel').textContent = 'Edit';
+      renderAll();
+      return;
+    }
+    const box = document.getElementById('passcodeBox');
+    const showing = box.style.display !== 'none';
+    box.style.display = showing ? 'none' : 'flex';
+    if(!showing){
+      document.getElementById('editToggle').style.display = 'none';
+      setTimeout(()=>document.getElementById('passcodeInput').focus(), 30);
+    }
+  };
+
+  document.getElementById('passcodeSubmit').onclick = tryPasscode;
+  document.getElementById('passcodeInput').addEventListener('keydown', (e)=>{
+    if(e.key === 'Enter') tryPasscode();
+    if(e.key === 'Escape'){
+      document.getElementById('passcodeBox').style.display = 'none';
+      document.getElementById('editToggle').style.display = '';
+    }
+  });
+
+  (async function init(){
+    try{
+      await loadAll();
+    }catch(e){
+      players = SEED.players.slice();
+      matches = seedMatches();
+      condoNotes = {};
+    }
+    renderAll();
+  })();
+})();
+</script>
+</body>
+</html>
